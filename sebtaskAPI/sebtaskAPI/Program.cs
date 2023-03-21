@@ -13,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<EcbService>();
+builder.Services.AddHostedService<ScheduledTask>();
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 builder.Services.AddCors();
 builder.Services.AddDbContext<DataContext>(options =>
 {
