@@ -15,7 +15,7 @@ export class CurrencyconverterComponent implements OnInit {
   fromCurrency = "EUR";
   toCurrency= "USD"
   showError = false;
-  errorMessage = "Unable to access API check your network connection and ensure that API is up and running"
+  errorMessage = "Unable to access API, check your network connection and ensure that API is up and running"
   ratesModel: Rate[] = [];
   constructor(private ecbService: EcbService) {
 
@@ -40,33 +40,6 @@ export class CurrencyconverterComponent implements OnInit {
       this.foreignRate = initalValue;
       this.exchangedValue = initalValue;
       this.isLoading = false;
-  //     let parser = new DOMParser();
-  //     let rateXml = parser.parseFromString(response, "text/xml");
-
-  //     let rates = rateXml.getElementsByTagName("Cube");
-
-  //     //add initial EUR rate cause it doesnt exist in the XML
-  //     this.ratesModel.push(new Rate(1,'EUR',1))
-  //     for(let i = 0; i < rates.length; i++){
-
-  //         var rate = rates[i];
-  //         var currency = rate.getAttribute("currency")
-  //         var currencyRate = rate.getAttribute("rate");
-  //         if(currency != null && currencyRate != null){
-
-  //            let currencyItem = new Rate(i,currency,Number(currencyRate));
-
-  //            if(currency == "USD"){
-  //             this.foreignRate = Number(currencyRate);
-  //             this.exchangedValue = Number(currencyRate)
-  //            }
-
-
-
-  //           this.ratesModel.push(currencyItem);
-
-  //       }
-  //     }
 
    },error =>{
       this.showError = true;
@@ -76,31 +49,15 @@ export class CurrencyconverterComponent implements OnInit {
 
 
   convertBaseCurrency(event: any){
-    console.log(this.baseRate);
-    console.log(this.foreignRate);
-    console.log(this.fromCurrency);
-    console.log(this.toCurrency);
     const foreignRateImmutable = this.ratesModel.find(c=> c.currency == this.toCurrency)?.rate;
-    // if(this.foreignRate == 0 || this.foreignRate == null)
-    //   this.foreignRate = foreignRateImmutable;
-
-
 
     this.calculateRate(this.baseRate as number, foreignRateImmutable as number);
 
   }
 
   convertForeignCurrency(event: any){
-    console.log(this.baseRate);
-    console.log(this.foreignRate);
-    console.log(this.fromCurrency);
-    console.log(this.toCurrency);
+
     const foreignRateImmutable = this.ratesModel.find(c=> c.currency == this.toCurrency)?.rate;
-    // if(this.foreignRate == 0 || this.foreignRate == null)
-    //   this.foreignRate = foreignRateImmutable;
-
-
-
     this.calculateRate(this.baseRate as number, foreignRateImmutable as number);
 
   }
@@ -119,9 +76,7 @@ export class CurrencyconverterComponent implements OnInit {
   }
 
 
-  calculateRate(baseCurrency: number , foreignCurrency: number, ){
-
-    console.log(foreignCurrency);
+  calculateRate(baseCurrency: number , foreignCurrency: number){
 
     let exchangeRate = baseCurrency * foreignCurrency;
 
