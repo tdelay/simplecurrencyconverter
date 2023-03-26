@@ -1,0 +1,43 @@
+<!-- convert from -->
+<div class="container">
+  <h1>Convert EUR to any currency available from the list</h1>
+  <div class="spinner-container">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+
+  <div class="row" *ngIf="!isLoading">
+
+    <div class="error-container" *ngIf="showError">
+        {{errorMessage}}
+    </div>
+    <div >
+      <mat-form-field class="example-form-field">
+        <mat-label>Euros</mat-label>
+        <input matInput type="number" [(ngModel)]="baseRate" (keyup)="convertBaseCurrency($event)">
+        <mat-icon matSuffix mat-icon-button *ngIf="baseRate"  (click)="clearBaseRate()">close</mat-icon>
+
+      </mat-form-field>
+    </div>
+
+    <!-- convert to -->
+    <div>
+    <mat-form-field class="example-form-field">
+      <mat-label>Foreign rate</mat-label>
+      <input matInput type="number" [(ngModel)]="exchangedValue" (keyup)="convertForeignCurrency($event)">
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Choose currency</mat-label>
+      <mat-select [(value)]="toCurrency" (selectionChange)="exchangedCurrencySelect($event)">
+        <mat-option *ngFor="let rate of ratesModel" [value]="rate.currency" >
+          {{rate.currency}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    </div>
+
+  </div>
+
+</div>
